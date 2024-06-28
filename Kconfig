@@ -1,0 +1,196 @@
+# Copyright (c) 2021 ATL-Electronics
+# SPDX-License-Identifier: Apache-2.0
+
+config ZEPHYR_HAL_ARTERY_MODULE
+	bool
+
+config HAS_AT32_HAL
+	bool
+	select HAS_CMSIS_CORE if ARM
+
+if HAS_AT32_HAL
+
+choice AT32_HEXT_FREQUENCY
+	prompt "High speed external oscillator clock frequency"
+	default AT32_HEXT_FIRMWARE_DEFINED
+	help
+	  Define value of high speed crystal oscillator (HEXT) in Hz
+	  This value sets the frequency of the oscillator.
+
+config AT32_HEXT_FIRMWARE_DEFINED
+	bool "Firmware defined"
+	help
+	  Use default frequency defined in firmware for HEXT
+	  This is using for SoCs that have default HEXT definitions in firmware.
+
+config AT32_HEXT_8MHZ
+	bool "8MHz"
+	help
+	  Use 8MHz oscillator for HEXT
+
+config AT32_HEXT_25MHZ
+	bool "25MHz"
+	help
+	  Use 25MHz oscillator for HEXT
+
+endchoice
+
+config AT32_HAS_IRC_32K
+	bool
+	help
+	  Use 32KHz oscillator for low speed internal RC Oscillator
+
+config AT32_HAS_IRC_40K
+	bool
+	help
+	  Use 40KHz oscillator for low speed internal RC Oscillator
+
+config AT32_LOW_SPEED_IRC_FREQUENCY
+	int
+	default 32000 if AT32_HAS_IRC_32K
+	default 40000 if AT32_HAS_IRC_40K
+	help
+	  Define value of low speed internal RC oscillator (IRC) in Hz
+
+config AT32_DEBUG_SUPPORT
+	bool "Use AT32 Debug features"
+	select USE_AT32_DEBUG
+	default y
+	help
+	  Enable AT32 Debug features.
+	  This option makes allows using functions that access to
+	  DBG_CTL register such as dbg_periph_enable().
+
+config USE_AT32_ACC
+	bool
+	help
+	  Enable AT32 HICK Automative Clock Calibration (ACC) HAL module driver
+
+config USE_AT32_ADC
+	bool
+	help
+	  Enable AT32 Analog-to-Digital Converter (ADC) HAL module driver
+
+config USE_AT32_BPR
+	bool
+	help
+	  Enable AT32 Battery Powered Register (BPR) HAL module driver
+
+config USE_AT32_CAN
+	bool
+	help
+	  Enable AT32 Controller Area Network (CAN) HAL module driver
+
+config USE_AT32_CRC
+	bool
+	help
+	  Enable AT32 Cyclic redundancy check calculation unit (CRC) HAL
+	  module driver
+
+config USE_AT32_CRM
+	bool
+	default y
+	help
+	  Enable AT32 Clock and Reset Management (CRM) HAL module driver
+
+config USE_AT32_DAC
+	bool
+	help
+	  Enable AT32 Digital-to-Analog Converter (DAC) HAL module driver
+
+config USE_AT32_DEBUG
+	bool
+	help
+	  Enable AT32 Debug (DEBUG) HAL module driver
+
+config USE_AT32_DMA
+	bool
+	help
+	  Enable AT32 Direct Memory Access controller (DMA) HAL module driver
+
+config USE_AT32_EMAC
+	bool
+	help
+	  Enable AT32 Ethernet MAC (EMAC) HAL module driver
+
+config USE_AT32_EXINT
+	bool
+	help
+	  Enable AT32 Interrupt/Event controller (EXINT) HAL module driver
+
+config USE_AT32_FLASH
+	bool
+	help
+	  Enable AT32 Flash Memory Controller (FLASH) HAL module driver
+
+config USE_AT32_GPIO
+	bool
+	default y
+	help
+	  Enable AT32 General-purpose and Alternate-Function I/Os
+	  (GPIO and AFIO) HAL module driver
+
+config USE_AT32_I2C
+	bool
+	help
+	  Enable AT32 Inter-Integrated Circuit Interface (I2C) HAL module driver
+
+config USE_AT32_MISC
+	bool
+	help
+	  Enable AT32 System Utilities (MISC) HAL module driver
+
+config USE_AT32_PWC
+	bool
+	help
+	  Enable AT32 Power Control (PWC) HAL module driver
+
+config USE_AT32_RTC
+	bool
+	help
+	  Enable AT32 Real-Time Clock (RTC) HAL module driver
+
+config USE_AT32_SDIO
+	bool
+	help
+	  Enable AT32 Secure Digital Input/Output interface (SDIO) HAL module
+	  driver
+
+config USE_AT32_SPI
+	bool
+	help
+	  Enable AT32 Serial Peripheral Interface(SPI) HAL module driver
+
+config USE_AT32_TMR
+	bool
+	help
+	  Enable AT32 Timer (TMR) HAL module driver
+
+config USE_AT32_USART
+	bool
+	help
+	  Enable AT32 Universal Synchronous/Asynchronous Receiver/Transmitter
+	  (USART) HAL module driver
+
+config USE_AT32_USB
+	bool
+	help
+	  Enable AT32 Universal Serial Bus full-speed interface (USB)
+	  HAL module driver
+
+config USE_AT32_WDT
+	bool
+	help
+	  Enable AT32 Free Watchdog Timer (WDT) HAL module driver
+
+config USE_AT32_WWDT
+	bool
+	help
+	  Enable AT32 Window Watchdog Timer (WWDT) HAL module driver
+
+config USE_AT32_XMC
+	bool
+	help
+	  Enable AT32 External Memory Controller (EXMC) HAL module driver
+
+endif # HAS_AT32_HAL
